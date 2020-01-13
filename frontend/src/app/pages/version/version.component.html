@@ -1,0 +1,100 @@
+<div fxLayout="column">
+    <mat-toolbar color="primary">
+        <mat-toolbar-row fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <mat-form-field floatLabel="never">
+                    <input
+                        matInput
+                        placeholder="Filter Apps"
+                        (keyup)="updateFilter()"
+                        [(ngModel)]="filterApp"
+                    />
+                </mat-form-field>
+                <button
+                    mat-raised-button
+                    color="accent"
+                    class="clear-filter"
+                    (click)="clearFilter()"
+                    [disabled]="filterApp === ''"
+                >
+                    Clear
+                </button>
+            </div>
+            <button
+                mat-raised-button
+                color="accent"
+                (click)="openAddAppDialog()"
+            >
+                Add App
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div>
+        <ngx-datatable
+            class="material"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="'auto'"
+            [columnMode]="'flex'"
+            [messages]="{
+                emptyMessage: 'No Apps Found',
+                totalMessage: 'total apps'
+            }"
+            [rows]="apps"
+        >
+            <ngx-datatable-column name="Bundle ID" [flexGrow]="2">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{ value }}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="App Name" prop="appName" [flexGrow]="3">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{ value }}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column
+                name="Last Build Number"
+                prop="buildNumber"
+                [flexGrow]="1"
+            >
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{ value }}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Actions" [flexGrow]="3">
+                <ng-template ngx-datatable-cell-template let-row="row">
+                    <div fxLayout="row" class="table-actions">
+                        <button
+                            mat-raised-button
+                            color="primary"
+                            (click)="bump(row)"
+                        >
+                            <mat-icon>trending_up</mat-icon>
+                            <span fxHide fxShow.gt-sm>Bump App</span>
+                        </button>
+                        <button
+                            mat-raised-button
+                            color="primary"
+                            (click)="setBuildNumber(row)"
+                        >
+                            <mat-icon>input</mat-icon>
+                            <span fxHide fxShow.gt-sm>Set Build Number</span>
+                        </button>
+                        <button
+                            mat-raised-button
+                            color="primary"
+                            (click)="deleteApp(row)"
+                        >
+                            <mat-icon>delete_outline</mat-icon>
+                            <span fxHide fxShow.gt-sm>Delete App</span>
+                        </button>
+                    </div>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="end">
+    <button mat-raised-button routerlink="home" color="accent">Go Home!</button>
+</div>

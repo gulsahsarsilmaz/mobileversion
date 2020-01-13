@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Set Build Number</h2>
+
+<p class="dialog-description">
+  Set the build number for <b>{{app.appName}}</b>.
+</p>
+
+<mat-dialog-content [formGroup]="form" fxLayout="column">
+    <mat-form-field>
+        <input matInput placeholder="Bundle Number" formControlName="buildNumber">
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button"(click)="close()">Cancel</button>
+    <button class="mat-raised-button mat-primary"(click)="save()">Set Build Number</button>
+</mat-dialog-actions>

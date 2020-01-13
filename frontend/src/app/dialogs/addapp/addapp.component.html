@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Add An App</h2>
+
+<p class="dialog-description">
+    Fill in the following fields to add an app to the system.
+</p>
+
+<mat-dialog-content [formGroup]="form" fxLayout="column">
+    <mat-form-field>
+        <input matInput placeholder="Bundle ID" formControlName="bundleId">
+        <mat-error *ngFor="let validation of validation_messages.bundleId">
+          <mat-error class="error-message" *ngIf="form.get('bundleId').hasError(validation.type) && (form.get('bundleId').dirty || form.get('bundleId').touched)">{{validation.message}}</mat-error>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="App Name" formControlName="appName">
+        <mat-error *ngFor="let validation of validation_messages.appName">
+          <mat-error class="error-message" *ngIf="form.get('appName').hasError(validation.type) && (form.get('appName').dirty || form.get('appName').touched)">{{validation.message}}</mat-error>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Initial Build Number" type="number" formControlName="buildNumber">
+        <mat-error *ngFor="let validation of validation_messages.buildNumber">
+          <mat-error class="error-message" *ngIf="form.get('buildNumber').hasError(validation.type) && (form.get('buildNumber').dirty || form.get('buildNumber').touched)">{{validation.message}}</mat-error>
+        </mat-error>
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button"(click)="close()">Cancel</button>
+    <button class="mat-raised-button mat-primary"(click)="save()" [disabled]="!form.valid">Add App</button>
+</mat-dialog-actions>

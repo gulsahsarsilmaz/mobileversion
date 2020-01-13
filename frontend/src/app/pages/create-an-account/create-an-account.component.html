@@ -1,0 +1,101 @@
+<div class="create-ccount-form">
+    <mat-card>
+        <mat-card-content>
+            <div>
+                <mat-toolbar color="accent">Create An Account</mat-toolbar>
+            </div>
+            <form
+                [formGroup]="createAccountForm"
+                (ngSubmit)="createAccount()"
+                fxLayout="column"
+            >
+                <mat-progress-bar
+                    mode="determinate"
+                    color="primary"
+                ></mat-progress-bar>
+                <mat-form-field>
+                    <input
+                        matInput
+                        placeholder="Username"
+                        formControlName="username"
+                    />
+                    <mat-error
+                        *ngFor="let validation of validation_messages.username"
+                    >
+                        <mat-error
+                            class="error-message"
+                            *ngIf="
+                                createAccountForm
+                                    .get('username')
+                                    .hasError(validation.type) &&
+                                (createAccountForm.get('username').dirty ||
+                                    createAccountForm.get('username').touched)
+                            "
+                            >{{ validation.message }}</mat-error
+                        >
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input
+                        matInput
+                        placeholder="Email"
+                        formControlName="email"
+                    />
+                    <mat-error
+                        *ngFor="let validation of validation_messages.email"
+                    >
+                        <mat-error
+                            class="error-message"
+                            *ngIf="
+                                createAccountForm
+                                    .get('email')
+                                    .hasError(validation.type) &&
+                                (createAccountForm.get('email').dirty ||
+                                    createAccountForm.get('email').touched)
+                            "
+                            >{{ validation.message }}</mat-error
+                        >
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input
+                        matInput
+                        placeholder="Password"
+                        formControlName="password"
+                        [type]="hide ? 'password' : 'text'"
+                    />
+                    <mat-icon matSuffix (click)="hide = !hide">{{
+                        hide ? "visibility_off" : "visibility"
+                    }}</mat-icon>
+                    <mat-error
+                        *ngFor="let validation of validation_messages.password"
+                    >
+                        <mat-error
+                            class="error-message"
+                            *ngIf="
+                                createAccountForm
+                                    .get('password')
+                                    .hasError(validation.type) &&
+                                (createAccountForm.get('password').dirty ||
+                                    createAccountForm.get('password').touched)
+                            "
+                            >{{ validation.message }}</mat-error
+                        >
+                    </mat-error>
+                </mat-form-field>
+                <div class="form-actions" fxLayout="row" fxLayoutGap="20px">
+                    <button class="mat-raised-button" (click)="close()">
+                        Cancel
+                    </button>
+                    <button
+                        mat-raised-button
+                        color="accent"
+                        [disabled]="!createAccountForm.valid"
+                    >
+                        Creat An Account
+                    </button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

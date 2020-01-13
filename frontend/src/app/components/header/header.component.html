@@ -1,0 +1,33 @@
+<mat-toolbar fxLayout="row">
+    <div fxFlex="grow">
+        <button mat-button class="header-logo" routerLink="/home">
+            <b>{{ title }}</b>
+        </button>
+    </div>
+    <div fxLayoutGap="20px">
+        <button
+            mat-raised-button
+            routerLink="/login"
+            color="accent"
+            *ngIf="!userService.isLoggedIn()"
+        >
+            Log In
+        </button>
+        <button
+            mat-raised-button
+            (click)="logout()"
+            color="accent"
+            *ngIf="userService.isLoggedIn()"
+        >
+            Log Out
+        </button>
+        <button
+            mat-raised-button
+            routerLink="/create-an-account"
+            color="accent"
+            *ngIf="!userService.isLoggedIn()"
+        >
+            Create An Account
+        </button>
+    </div>
+</mat-toolbar>
